@@ -142,6 +142,7 @@ $Y_{i}$	=	_observed values_ atau _ground truth_ dari nilai sebenarnya.
 $\hat{Y}_{i}$	=	_predicted values_ atau _estimated target values_.
 
 Hasil dari evaluasi matriks adalah sebagai berikut:
+
 ![download](https://github.com/median91/movielens/assets/62655457/6811bc57-294c-4fc4-b01f-9571ced50b2a)
 
 Dari visualisasi proses pelatihan model di atas, dapat dilihat bahwa grafiknya relatif halus dan model tampaknya konvergen sekitar 25 epoch. Dari proses ini, diperoleh nilai RMSE akhir sekitar 0.19 untuk data latih dan sekitar 0.21 untuk data validasi. Analisis akhir menunjukkan bahwa model cenderung mengalami overfitting, karena grafik error pada data validasi masih turun meskipun error pada data latih sudah stabil.
