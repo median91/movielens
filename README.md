@@ -5,7 +5,7 @@
 
 _Sistem rekomendasi_ adalah sebuah sistem yang bertujuan untuk memprediksi sejumlah item atau data yang mungkin disukai oleh pengguna berdasarkan aktivitas masa lalu, dan kemudian menghadirkan daftar rekomendasi atas item tersebut. Umumnya, sistem rekomendasi telah menjadi hal yang lazim dalam mengelola informasi dengan memberikan saran kepada pengguna mengenai produk-produk yang paling relevan. Sistem-sistem serupa juga telah diterapkan dalam produk-produk media, platform-platform film, dan aspek-aspek komersial.
 
-Beberapa platform yang menawarkan layanan film, seperti Vidio, Netflix, WeTV, Viu, dan lainnya, menggunakan sistem rekomendasi yang serupa. Sistem rekomendasi yang dibangun ini memberikan rekomendasi kepada pengguna berdasarkan preferensi genre yang disukai oleh pengguna, serta nilai _rating_ dari film-film tersebut. Hasil akhir yang diharapkan dari sistem rekomendasi ini adalah membantu pengguna dalam menemukan film-film yang sesuai dengan keinginan mereka, baik itu berdasarkan kesamaan preferensi film atau rekomendasi berdasarkan nilai _rating_.
+Beberapa platform yang menawarkan layanan film, seperti Vidio, Netflix, WeTV, Viu, dan lainnya, menggunakan sistem rekomendasi yang serupa. Sistem rekomendasi yang dibangun ini memberikan rekomendasi kepada pengguna berdasarkan preferensi genre yang disukai oleh pengguna, serta nilai _rating_ dari film-film tersebut. Hasil akhir yang diharapkan dari sistem rekomendasi ini adalah membantu pengguna dalam menemukan film-film yang sesuai dengan keinginan mereka, baik itu berdasarkan kesamaan preferensi film atau rekomendasi berdasarkan nilai _rating_. Dengan menampilkan film yang relevan dan menarik, sistem rekomendasi dapat membantu menarik penonton baru ke platform penyedia layanan film yang ada. Sistem rekomendasi yang efektif, juga dapat membuat penonton yang ada terus kembali ke platform karena mereka merasa konten yang ditawarkan sesuai dengan minat mereka. Rekomendasi yang tepat dapat meningkatkan jumlah penayangan keseluruhan di platform, seperti YouTube, bahkan melampaui subscription channel atau berdasarkan penelusuran semata.
 
 ## Business Understanding
 
@@ -16,7 +16,7 @@ Bagaimana caranya memberikan rekomendasi film yang disukai oleh pengguna?
 Untuk mengatasi permasalahan yang telah dijelaskan dalam bagian _Problem Statements_, maka dibangunlah sistem rekomendasi yang mampu memberikan rekomendasi film berdasarkan _ratings_ dan aktivitas pengguna di masa lalu.
 
 ### Solution statements
-Solusi yang diusulkan adalah dengan menerapkan 1 algoritma machine learning, terbatas pada **Content Based Filtering** dan **Collaborative Filtering**. Kedua algoritma ini digunakan dengan tujuan yang sama, yaitu memberikan rekomendasi film kepada pengguna. Algoritma content based filtering akan merekomendasikan film kepada pengguna berdasarkan aktivitas film yang pernah ditonton oleh pengguna di masa lalu. Sementara itu, algoritma collaborative filtering akan memberikan rekomendasi kepada pengguna berdasarkan rating tertinggi.
+Solusi yang diusulkan adalah dengan menerapkan 2 algoritma machine learning, terbatas pada **Content Based Filtering** dan **Collaborative Filtering**. Kedua algoritma ini digunakan dengan tujuan yang sama, yaitu memberikan rekomendasi film kepada pengguna. Algoritma content based filtering akan merekomendasikan film kepada pengguna berdasarkan aktivitas film yang pernah ditonton oleh pengguna di masa lalu. Sementara itu, algoritma collaborative filtering akan memberikan rekomendasi kepada pengguna berdasarkan rating tertinggi.
 
 - **Content Based Filtering**
 Algoritma Content Based Filtering adalah metode yang memanfaatkan fitur-fitur item untuk merekomendasikan item lain yang memiliki kemiripan dengan item yang disukai pengguna, berdasarkan sejarah tindakan atau umpan balik eksplisit. Algoritma ini juga menggunakan kesamaan dalam produk, layanan, atau fitur konten, serta informasi yang terkumpul mengenai pengguna untuk membuat rekomendasi.
@@ -24,17 +24,19 @@ Algoritma Content Based Filtering adalah metode yang memanfaatkan fitur-fitur it
 - **Collaborative Filtering**
 Algoritma Collaborative Filtering adalah pendekatan yang memanfaatkan kesamaan antara pengguna dan item secara bersama-sama untuk memberikan rekomendasi. Metode ini juga bergantung pada preferensi pengguna lain yang serupa untuk memberikan rekomendasi kepada pengguna tertentu.
 
+Salah satu contoh penerapan nyata kedua algoritma ini adalah penerapan sistem rekomendasi pada platform YouTube dan Netflix. Keduanya menyajikan sistem rekomendasi untuk menyajikan konten yang relevan dan menarik bagi pengguna, sehingga meningkatkan kepuasan dan retensi pelanggan.
+
 ## Data Understanding
 Dataset yang digunakan dalam proyek machine learning terdiri dari 105.339 data penilaian (ratings) dan 10.329 data film (movies) yang diperoleh dari situs [kaggle](https://www.kaggle.com/datasets/ayushimishra2809/movielens-dataset). 
 
 **Variabel-variabel pada Movielens Dataset adalah sebagai berikut:**
 
-1.  movieId = ID movie
-2.  title = judul movie
-3.  genres = genre dari movie
-4.  userId = ID user
-5.  rating = rating yang diberikan oleh user terhadap movie
-6.  timestamp = waktu ketika user memberikan rating
+1.  movieId = Identifikasi unik untuk setiap judul film.
+2.  title = Judul film.
+3.  genres = Genre dari film, seperti Action, Comedi, dll.
+4.  userId = Identifikasi unik setiap user yang memberikan peringkat.
+5.  rating = Nilai rating yang diberikan oleh user terhadap film.
+6.  timestamp = Waktu ketika user memberikan rating pada film.
 
 
 ### Explanatory Data Analysis
@@ -55,9 +57,9 @@ Pada tahap persiapan data, dilakukan beberapa langkah seperti:
 
 1.  Seleksi Data: Data yang memiliki nilai kosong dihapus. Namun, dalam dataset `ratings` dan `movies` tidak ditemukan data yang kosong, yang diverifikasi menggunakan `isnull().sum()`.
     
-2.  Pembagian Data: Data dibagi menjadi data _training_ dan data _testing_ dengan rasio 80:20.
+2.  Pembagian Data: Data dibagi menjadi data _training_ dan data _testing_ dengan rasio 80:20. Rasio 80:20 membagi data menjadi 80% data latihan (_training_) dan 20% data uji (_testing_). Tujuannya adalah untuk menggunakan sebagian besar data untuk melatih model, sementara sisanya digunakan untuk menguji kinerja model.
     
-3.  Pengurutan Data: Data diurutkan berdasarkan `movieId` secara menaik.
+3.  Pengurutan Data: Data diurutkan berdasarkan `movieId` secara menaik. Mengurutkan data berdasarkan movieId memudahkan untuk mengelompokkan dan mengakses informasi yang terkait dengan film tertentu.
     
 4.  Penghapusan Duplikasi: Data dengan nilai yang sama dihapus.
     
@@ -87,7 +89,7 @@ Film-film yang direkomendasikan melalui fungsi movie_recommendation, menghasilka
 | 3 | Adventures of Rocky and Bullwinkle, The (2000) | Adventure\|Animation\|Children\|Comedy\|Fantasy |
 | 4 | Tale of Despereaux, The (2008) | Adventure\|Animation\|Children\|Comedy\|Fantasy |
 
-2. **Collaborative Filtering**: Dalam algoritma ini, dilakukan _training_ dan pembuatan model `RecommenderNet`. _Training_ dilakukan menggunakan optimisasi `Adam` dan evaluasi menggunakan matriks RMSE. Model `RecommenderNet` akan menghitung skor _match_ antara dua _embedding layers_ dari _user_ dan _movie_ melalui operasi `dot_product`, dan kemudian menambahkan _bias_ ke kedua lapisan tersebut. Skor _match_ ini kemudian diubah menjadi skala interval antara 0 hingga 1 melalui fungsi _sigmoid_.
+2. **Collaborative Filtering**: Dalam algoritma ini, dilakukan _training_ dan pembuatan model `RecommenderNet`. `RecommenderNet` menggunakan arsitektur _Deep Neural Network_ (DNN) yang terdiri dari beberapa hidden layers dan fungsi aktivasi non-linear. DNN ini dapat dengan mudah menggabungkan fitur query dan fitur item, yang dapat membantu menangkap minat spesifik pengguna dan meningkatkan relevansi rekomendasi. _Training_ dilakukan menggunakan optimisasi `Adam` dan evaluasi menggunakan matriks RMSE. Model `RecommenderNet` akan menghitung skor _match_ antara dua _embedding layers_ dari _user_ dan _movie_ melalui operasi `dot_product`, dan kemudian menambahkan _bias_ ke kedua lapisan tersebut. Skor _match_ ini kemudian diubah menjadi skala interval antara 0 hingga 1 melalui fungsi _sigmoid_.
 
 Contoh film yang direkomendasikan berdasarkan _rating_ tertinggi:
 
